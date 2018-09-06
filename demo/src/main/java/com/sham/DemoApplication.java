@@ -7,6 +7,7 @@ import com.sham.common.utils.UploadUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 @SpringBootApplication
+@EnableCaching
 @Controller
 public class DemoApplication {
 
@@ -51,5 +53,6 @@ public class DemoApplication {
     public String getConfig(String name) {
         return IConfig.getConfig(name);
     }
+
 
 }
