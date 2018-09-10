@@ -34,9 +34,9 @@ public class DemoApplication {
 
     @RequestMapping(value = "demo")
     @ResponseBody
-    public String demo() {
+    public String demo(String start) {
         RestTemplate client = new RestTemplate();
-        ResponseEntity<String> response = client.exchange("https://douban.uieee.com/v2/movie/top250", HttpMethod.POST, null, String.class);
+        ResponseEntity<String> response = client.exchange("https://douban.uieee.com/v2/movie/top250?start="+start, HttpMethod.POST, null, String.class);
         ParamData paramData = new ParamData();
         return response.getBody();
     }
