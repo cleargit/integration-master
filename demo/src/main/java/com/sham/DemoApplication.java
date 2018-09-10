@@ -1,5 +1,6 @@
 package com.sham;
 
+import com.sham.common.annotation.ControllerLog;
 import com.sham.common.core.IConfig;
 import com.sham.common.dto.ParamData;
 import com.sham.common.utils.Iputil;
@@ -47,7 +48,7 @@ public class DemoApplication {
         System.out.println(Iputil.getIp(request));
         return UploadUtil.uploadImg(request, dir, path);
     }
-
+    @ControllerLog("abc")
     @RequestMapping(value = "config")
     @ResponseBody
     public String getConfig(String name) {
