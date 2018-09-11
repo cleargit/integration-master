@@ -2,6 +2,7 @@ package com.sham.common.processor;
 
 import com.sham.common.dto.AnnotationContain;
 import com.sham.common.utils.ClassUtil;
+import com.sham.common.utils.LoggerUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.core.annotation.AnnotationUtils;

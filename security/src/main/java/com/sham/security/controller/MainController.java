@@ -5,7 +5,7 @@ import com.sham.common.dto.AjaxResult;
 import com.sham.security.Service.LoginServise;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class LoginController extends BaseController {
+public class MainController extends BaseController {
 
     @Autowired
     LoginServise loginServise;

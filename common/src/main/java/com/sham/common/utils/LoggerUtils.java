@@ -18,8 +18,10 @@ public class LoggerUtils {
         getLogger().error(msg);
     }
     public static Logger getLogger(){
-        StackTraceElement[] stackTrace=(new Throwable()).getStackTrace();
-        Logger logger=LoggerFactory.getLogger(stackTrace[1].getClassName());
+
+        //利用堆栈方式获取类名
+         StackTraceElement[] stackTrace=(new Throwable()).getStackTrace();
+        Logger logger=LoggerFactory.getLogger(stackTrace[2].getClassName());
         return logger;
     }
 }

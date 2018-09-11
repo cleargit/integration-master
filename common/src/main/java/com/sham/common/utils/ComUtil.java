@@ -8,10 +8,20 @@ import javax.servlet.http.HttpServletResponse;
 
 public class ComUtil {
 
+
     public static HttpServletRequest getRequest(){
         return ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
     }
     public static HttpServletResponse getReponse(){
         return ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getResponse();
+    }
+
+
+    public static void encrypt(String content){
+
+    }
+
+    public static void decode(){
+
     }
 }
