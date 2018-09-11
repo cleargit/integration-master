@@ -8,6 +8,12 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
 
+/*
+ *  
+ * 
+ * @author sham
+ * @date 2018/9/11 16:32
+ */
 
 public abstract class AbstractService<T> extends WrapperDao {
 
