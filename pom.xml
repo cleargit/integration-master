@@ -18,5 +18,7 @@
         <module>common</module>
         <module>demo</module>
         <module>websocket</module>
+        <module>mybatis</module>
+        <module>security</module>
     </modules>
 </project>

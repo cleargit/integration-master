@@ -9,8 +9,17 @@ public class LoggerUtils {
         if (msg==null){
             return;
         }
+        getLogger().info(msg);
+    }
+    public static void error(String msg){
+        if (msg==null){
+
+        }
+        getLogger().error(msg);
+    }
+    public static Logger getLogger(){
         StackTraceElement[] stackTrace=(new Throwable()).getStackTrace();
         Logger logger=LoggerFactory.getLogger(stackTrace[1].getClassName());
-        logger.info(msg);
+        return logger;
     }
 }
