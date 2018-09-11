@@ -6,6 +6,7 @@ import tk.mybatis.mapper.common.Mapper;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.List;
 
 
 public abstract class AbstractService<T> extends WrapperDao {
@@ -22,7 +23,7 @@ public abstract class AbstractService<T> extends WrapperDao {
             Type[] actualTypeArguments = parameterizedType.getActualTypeArguments();
             Class<T> clazz= (Class<T>)actualTypeArguments[0];
             String[] paramName= clazz.getPackage().getName().split("\\.");
-            String mapperKey=paramName[0]+"."+paramName[1]+".mapper."+clazz.getSimpleName()+ "Mapper";
+            String mapperKey=paramName[0]+"."+paramName[1]+".mymapper."+clazz.getSimpleName()+ "Mapper";
             setMapperName(mapperKey);
         }
     }
@@ -31,6 +32,9 @@ public abstract class AbstractService<T> extends WrapperDao {
     }
     public int updateSelective(T entity){
         return mapper.updateByPrimaryKeySelective(entity);
+    }
+    public List<T> selectAll(){
+        return mapper.selectAll();
     }
 
 }

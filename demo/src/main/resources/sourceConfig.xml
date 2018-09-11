@@ -12,7 +12,7 @@
         <property name="javaFileEncoding" value="utf-8"/>
         <!-- 集成通用Mapper -->
         <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
-            <property name="mappers" value="com.sham.mybatis.mapper.BaseMapper" />
+            <property name="mappers" value="com.sham.mybatis.mymapper.BaseMapper" />
         </plugin>
         <!-- 生成注释 -->
         <commentGenerator>
