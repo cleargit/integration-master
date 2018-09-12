@@ -17,11 +17,11 @@ public class ComUtil {
     }
 
 
-    public static void encrypt(String content){
+    public static void encrypt(String key,byte[] bytes){
 
     }
 
-    public static void decode(){
-
+    public static byte[] decode(String key){
+        return null;
     }
 }
