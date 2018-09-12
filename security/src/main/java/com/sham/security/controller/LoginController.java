@@ -1,10 +1,17 @@
 package com.sham.security.controller;
 
-import org.springframework.stereotype.Controller;
+import com.sham.common.base.BaseController;
+import com.sham.common.dto.AjaxResult;
+import com.sham.security.Service.LoginServise;
+import org.springframework.beans.factory.annotation.Autowired;
 
-@Controller
-public class LoginController {
-    public void login(){
+public class LoginController extends BaseController {
 
+    @Autowired
+    LoginServise loginServise;
+
+
+    public AjaxResult login(){
+        return sussess_msg("成功");
     }
 }

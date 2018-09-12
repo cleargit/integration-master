@@ -66,7 +66,4 @@ public class SessionContain {
     public synchronized static void putSession(SessionContain sessionContain){
         containMap.put(sessionContain.getSeessionId(),sessionContain);
     }
-    public void delSession(){
-
-    }
 }

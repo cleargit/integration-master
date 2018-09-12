@@ -3,8 +3,8 @@ package com.sham.common.dto;
 public class WebSocketData {
     private String sessionId;
     private Object object;
-    private String userId;
-
+    private Integer userId;
+    private Integer toUserId;
     public String getSessionId() {
         return sessionId;
     }
@@ -21,11 +21,19 @@ public class WebSocketData {
         this.object = object;
     }
 
-    public String getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public Integer getToUserId() {
+        return toUserId;
+    }
+
+    public void setToUserId(Integer toUserId) {
+        this.toUserId = toUserId;
     }
 }

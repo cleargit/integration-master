@@ -15,7 +15,6 @@ import java.util.UUID;
 
 public class UploadUtil {
 
-
     public static String uploadImg(HttpServletRequest request, String dir, String perfix) throws IOException {
         String entryPath = "";
         //创建一个通用多部分解析器

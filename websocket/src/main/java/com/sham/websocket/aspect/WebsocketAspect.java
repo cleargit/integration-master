@@ -1,6 +1,9 @@
 package com.sham.websocket.aspect;
 
 import com.sham.common.dto.WebSocketData;
+import com.sham.common.utils.LoggerUtils;
+import com.sham.websocket.dto.SessionContain;
+import com.sham.websocket.service.WebSocketService;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -20,7 +23,9 @@ public class WebsocketAspect {
         Object args[]=joinPoint.getArgs();
         if (args[0] instanceof WebSocketData){
             WebSocketData data= (WebSocketData) args[0];
-
+            WebSocketService.sendMsg(data);
+        }else {
+            LoggerUtils.error("到这了 说明代码已死");
         }
     }
 }

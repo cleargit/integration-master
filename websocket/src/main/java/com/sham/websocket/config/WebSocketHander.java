@@ -8,17 +8,25 @@ import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
 
+import java.util.Iterator;
+
 public class WebSocketHander implements WebSocketHandler {
     @Override
-    public void afterConnectionEstablished(WebSocketSession webSocketSession) throws Exception {
-        new SessionContain(webSocketSession,webSocketSession.getId(),DateUtil.getCurrTime());
+    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+        new SessionContain(session,session.getId(),DateUtil.getCurrTime());
         LoggerUtils.info("新连接加入.. 当前人数:"+SessionContain.containMap.size());
     }
 
     @Override
-    public void handleMessage(WebSocketSession webSocketSession, WebSocketMessage<?> webSocketMessage) throws Exception {
-        SessionContain.delSession(webSocketSession);
-        LoggerUtils.info("有人断开连接.. 当前人数:"+SessionContain.containMap.size());
+    public void handleMessage(WebSocketSession session, WebSocketMessage<?> webSocketMessage) throws Exception {
+//        Integer userId=TokenManage.getUserId;
+
+        //群发
+        Iterator iterator=SessionContain.getContainMap().values().iterator();
+        while (iterator.hasNext()){
+            SessionContain sessionContain= (SessionContain) iterator.next();
+            sessionContain.getSession().sendMessage(webSocketMessage);
+        }
     }
 
     @Override
@@ -28,7 +36,8 @@ public class WebSocketHander implements WebSocketHandler {
 
     @Override
     public void afterConnectionClosed(WebSocketSession webSocketSession, CloseStatus closeStatus) throws Exception {
-
+        SessionContain.delSession(webSocketSession);
+        LoggerUtils.info("有人断开连接.. 当前人数:"+SessionContain.containMap.size());
     }
 
     @Override
