@@ -31,7 +31,7 @@
             <generatedKey column="id" sqlStatement="Mysql" identity="true" />
         </table>
         -->
-        <table tableName="demo"
+        <table tableName="sr_%"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">

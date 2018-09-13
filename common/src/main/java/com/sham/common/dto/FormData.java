@@ -7,6 +7,7 @@ import java.util.List;
 public class FormData<T extends BaseModel> {
     private Integer page;
     private Integer count;
+    private Integer total;
     private List<T> rows;
 
     public Integer getPage() {
@@ -31,5 +32,13 @@ public class FormData<T extends BaseModel> {
 
     public void setRows(List<T> rows) {
         this.rows = rows;
+    }
+
+    public Integer getTotal() {
+        return total;
+    }
+
+    public void setTotal(Integer total) {
+        this.total = total;
     }
 }

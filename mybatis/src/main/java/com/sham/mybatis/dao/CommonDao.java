@@ -8,4 +8,5 @@ public interface CommonDao {
     int update(String mapper,Object param);
     int delect(String mapper,Object param);
     List<?> findForList(String mapper,Object param);
+
 }

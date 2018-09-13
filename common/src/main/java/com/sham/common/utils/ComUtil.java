@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 
 public class ComUtil {
 
-
     public static HttpServletRequest getRequest(){
         return ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
     }
@@ -16,12 +15,10 @@ public class ComUtil {
         return ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getResponse();
     }
 
-
-    public static void encrypt(String key,byte[] bytes){
-
+    public static void setRequestAttr(String key,Object value){
+        getRequest().setAttribute(key,value);
     }
-
-    public static byte[] decode(String key){
-        return null;
+    public static Object getRequestAttr(String key){
+        return getRequest().getAttribute(key);
     }
 }

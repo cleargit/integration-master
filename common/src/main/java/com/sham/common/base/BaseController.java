@@ -3,7 +3,7 @@ package com.sham.common.base;
 import com.sham.common.dto.AjaxResult;
 import org.springframework.stereotype.Controller;
 
-@Controller
+
 public class BaseController {
 
     public AjaxResult add_msg(Integer flag){

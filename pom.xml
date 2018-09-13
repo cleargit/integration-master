@@ -20,5 +20,7 @@
         <module>websocket</module>
         <module>mybatis</module>
         <module>security</module>
+        <module>redis</module>
+        <module>mongodb</module>
     </modules>
 </project>

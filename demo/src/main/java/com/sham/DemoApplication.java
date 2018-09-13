@@ -1,61 +1,26 @@
 package com.sham;
 
-import com.sham.common.annotation.ControllerLog;
-import com.sham.common.core.IConfig;
-import com.sham.common.dto.ParamData;
-import com.sham.common.utils.Iputil;
-import com.sham.common.utils.UploadUtil;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.client.RestTemplate;
 import tk.mybatis.spring.annotation.MapperScan;
-
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 
 @MapperScan(basePackages = "com.sham.*.mapper")
 @SpringBootApplication
 @EnableCaching
-@Controller
-public class DemoApplication {
+public class DemoApplication extends SpringBootServletInitializer {
 
-    @Value("${upload.dir}")
-    String dir;
-    @Value("${upload.path}")
-    String path;
 
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
     }
 
-    @RequestMapping(value = "demo")
-    @ResponseBody
-    public String demo(String start) {
-        RestTemplate client = new RestTemplate();
-        ResponseEntity<String> response = client.exchange("https://douban.uieee.com/v2/movie/top250?start="+start, HttpMethod.POST, null, String.class);
-        ParamData paramData = new ParamData();
-        return response.getBody();
-    }
-
-    @RequestMapping(value = "upload")
-    @ResponseBody
-    public String upload(HttpServletRequest request) throws IOException {
-        System.out.println(Iputil.getIp(request));
-        return UploadUtil.uploadImg(request, dir, path);
-    }
-    @ControllerLog("abc")
-    @RequestMapping(value = "config")
-    @ResponseBody
-    public String getConfig(String name) {
-        return IConfig.getConfig(name);
-    }
-
+//    @Override
+//    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+//        return application.sources(DemoApplication.class);
+//    }
 
 }
