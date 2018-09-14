@@ -3,10 +3,35 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head th:include="common/head :: htmlhead" th:with="title='favorites'">
 <body>
-<div id="toolbar">
-    <form>
+<div class="search">
+    <div class="form-inline">
 
-    </form>
+
+    <div class="form-group">
+        <label>姓名</label>
+        <input type="text" class="form-control"  name="name">
+    </div>
+    <div class="form-group">
+        <label>专长</label>
+        <input type="text" class="form-control"  name="expertise">
+    </div>
+        <div class="form-group">
+            <label>职级</label>
+            <input type="text" class="form-control"  name="expertise">
+        </div>
+    </div>
+</div>
+
+<div id="toolbar" class="btn-group">
+    <button id="btn_add" type="button" class="btn btn-info btn-sm rightSize">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
+    </button>
+    <button id="btn_edit" type="button" class="btn btn-info btn-sm rightSize">
+        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改
+    </button>
+    <button id="btn_delete" type="button" class="btn btn-info btn-sm rightSize">
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
+    </button>
 </div>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -26,8 +51,10 @@
                 </div>
                 <div class="form-group">
                     <label>出生时间</label>
-                    <div class="input-append date form_datetime">
-                        <input type="text" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                    <div class="input-group date form_date" data-date-format="dd MM yyyy ">
+                        <input class="form-control" size="16" type="text" value="" readonly>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                     </div>
                 </div>
                 <div class="form-group">
@@ -57,10 +84,17 @@
 <script>
     $(function () {
         InitMainTable();
-        $('.form_datetime').datetimepicker({
-            format: "dd MM yyyy - hh:ii"
+        $('.form_date').datetimepicker({
+            language:  'zh',
+            weekStart: 1,
+            todayBtn:  1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
         });
-        $("#myModal").modal();
+        // $("#myModal").modal();
         // toastr.options.positionClass = 'toast-top-center';
         // toastr.warning('warning');
         // toastr.info('info');
