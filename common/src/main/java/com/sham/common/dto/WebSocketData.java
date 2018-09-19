@@ -5,6 +5,18 @@ public class WebSocketData {
     private Object object;
     private Integer userId;
     private Integer toUserId;
+
+    public WebSocketData(Object object, Integer userId, Integer toUserId) {
+        this.object = object;
+        this.userId = userId;
+        this.toUserId = toUserId;
+    }
+
+    public WebSocketData(Object object, Integer toUserId) {
+        this.object = object;
+        this.toUserId = toUserId;
+    }
+
     public String getSessionId() {
         return sessionId;
     }

@@ -20,7 +20,10 @@ public class MainController extends BaseController {
         ComUtil.setRequestAttr("name", "sham");
         return "index";
     }
-
+    @GetMapping("login")
+    public String login(){
+        return "admin/login";
+    }
     @GetMapping("/car")
     @ResponseBody
     public FormData list(){

@@ -46,4 +46,5 @@ public class WrapperDao implements CommonDao {
     public <T> T findForObject(String str, Object obj) {
         return this.sqlSessionTemplate.selectOne(this.mapperName + str, obj);
     }
+
 }

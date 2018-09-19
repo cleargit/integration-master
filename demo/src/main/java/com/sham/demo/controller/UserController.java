@@ -7,6 +7,7 @@ import com.sham.demo.model.SrUser;
 import com.sham.demo.server.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,6 +44,9 @@ public class UserController extends BaseController {
         int num = userService.updateSelective(user);
         return edit_msg(num);
     }
-
-
+    @GetMapping("selectOne")
+    @ResponseBody
+    public SrUser selectOne(Integer id){
+        return userService.selectByPrimaryKey(id);
+    }
 }

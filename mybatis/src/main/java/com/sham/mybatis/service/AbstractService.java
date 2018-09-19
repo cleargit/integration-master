@@ -8,6 +8,7 @@ import tk.mybatis.mapper.common.Mapper;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +41,34 @@ public abstract class AbstractService<T> extends WrapperDao {
     public int insertSelective(T entity){
         return mapper.insertSelective(entity);
     }
+    public T selectByPrimaryKey(Integer id){
+        return mapper.selectByPrimaryKey(id);
+    }
+    public  T selectOne(Object param){
+        String sqlId="findAll";
+        List<T> list=selectBySqlId(sqlId,param);
+        return list!=null&&list.size()>0 ?list.get(0):null;
+    }
+    public  T seleOne(String mapper,Object param){
+        List<T> list=selectBySqlId(mapper,param);
+        return list!=null&&list.size()>0 ?list.get(0):null;
+    }
+    public  List<T> selectBySqlId(String mapper,Object param){
+        Object rows = new ArrayList();
+        try {
+            rows = this.findForList(mapper, param);
+        } catch (Exception var5) {
+            System.out.println(var5);
+            var5.getStackTrace();
+        }
+
+        return (List)rows;
+    }
+    public List<T> findForList(Object param) {
+        String sqlId="findAll";
+        return (List<T>) findForList(sqlId,param);
+    }
+
     public int updateSelective(T entity){
         return mapper.updateByPrimaryKeySelective(entity);
     }

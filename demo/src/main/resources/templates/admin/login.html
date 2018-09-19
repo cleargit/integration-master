@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    var websocket=null;
+    connect=function () {
+        if ('WebSocket' in window) {
+            websocket = new WebSocket("ws://localhost:8080/websocket");
+        } else {
+            websocket = new SockJS("");
+        }
+        //连接发生错误的回调方法
+        websocket.onerror = function () {
+            console.log("WebSocket连接发生错误");
+        };
+
+        //连接成功建立的回调方法
+        websocket.onopen = function () {
+            console.log("WebSocket连接成功");
+        };
+
+        //接收到消息的回调方法
+        websocket.onmessage = function (event) {
+            console.log(event);
+        };
+        //连接关闭的回调方法
+        websocket.onclose = function () {
+            console.log("WebSocket连接关闭");
+        }
+    };
+    connect();
+</script>
+</html>

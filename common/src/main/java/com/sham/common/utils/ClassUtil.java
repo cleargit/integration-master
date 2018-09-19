@@ -34,8 +34,11 @@ public class ClassUtil {
                             if (ids!=-1){
                                 packname=name.substring(0,ids).replace("/",".");
                             }
-                            String className=name.substring(packname.length()+1,name.length()-6);
-                            classes.add(Class.forName(packname+"."+className));
+                            if (name.endsWith("class") && !entry.isDirectory()){
+                                String className=name.substring(packname.length()+1,name.length()-6);
+                                classes.add(Class.forName(packname+"."+className));
+                            }
+
                         }
                     }
                 }
