@@ -53,7 +53,7 @@
     <script>
 
     $("#btn_submit").bind("click",function () {
-        var obj=new doSubmit({url:"add",handlerFun:function (json) {
+        var obj=new doSubmit({url:url,handlerFun:function (json) {
                 console.log(json);
                 return true;
             }}).run();

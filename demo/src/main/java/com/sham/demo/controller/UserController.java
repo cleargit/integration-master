@@ -44,7 +44,7 @@ public class UserController extends BaseController {
         int num = userService.updateSelective(user);
         return edit_msg(num);
     }
-    @GetMapping("selectOne")
+    @GetMapping("/selectOne")
     @ResponseBody
     public SrUser selectOne(Integer id){
         return userService.selectByPrimaryKey(id);

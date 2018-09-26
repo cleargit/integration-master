@@ -26,6 +26,7 @@
 </body>
 <script>
     $(function () {
+        var url="add";
         InitMainTable();
         $('.form_date').datetimepicker({
             language: 'zh',
@@ -40,9 +41,6 @@
 
 
     });
-    addData = function () {
-        $("#myModal").modal();
-    };
     var $table;
 
     function InitMainTable() {
@@ -120,7 +118,6 @@
                 title: '操作',
                 align: 'center',
                 valign: 'middle',
-                events:operateEvents,//给按钮注册事件
                 formatter: addFunctionAlty
             },],
             onLoadSuccess: function () {
@@ -142,25 +139,44 @@
         }
         return "<div style='color: green'>" + text + "</div>";
     }
-    window.operateEvents = {
+    $('#myModal').on('show.bs.modal',function(event){
+        var modal = $(this);
+        var btnThis = $(event.relatedTarget);
+        console.log(btnThis.data('id'));
+        if (btnThis.data('id')=="add"){
 
-        // 点击修改按钮执行的方法
-        'click #btn_edit': function (e, value, row, index) {
-            alert("edit");
-        },
-        // 点击删除按钮执行的方法
-        'click #btn_delete': function (e, value, row, index) {
-            alert("delect");
+        }else {
+            url="edit";
+            $.ajax({
+                url:"selectOne",
+                type:"get",
+                data:{id:1},
+                success:function (msg) {
+                    console.log(msg);
+                    var i=0;
+                    for (var item in msg){
+                        var target= $(".modal input[name="+item+"]");
+                        if (target[0]!=undefined){
+                            target[0].value=msg[item];
+                        }
+                    }
+                    var target= $("input[name=birthdate]");
+                    if (target[0]!=undefined){
+                        target[0].value=2018;
+                    }
+                }
+            })
         }
-    };
 
+
+    });
     function linkFormatter(value) {
         return "<a href='" + value + "' title=" + value + " target='_blank'>" + value + "</a>";
     }
 
     function addFunctionAlty() {
         return [
-            '<button type="button" id="btn_edit" class="btn btn-default" data-toggle="modal" data-target="#ModalInfo">修改</button>  ',
+            '<button type="button" data-id="edit" id="btn_edit" class="btn btn-default" data-toggle="modal" data-target="#myModal">修改</button>  ',
             '<button id="btn_delete" class="btn btn-warning">删除</button>'
         ].join('');
     }
