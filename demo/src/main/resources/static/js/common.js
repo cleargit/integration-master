@@ -38,24 +38,24 @@
 //     }
 //
 // })(jQuery);
-var doSubmit=function(options){
-    this.default={
-        formId:'',
-        url:'',
-        type:'post',
+var doSubmit = function (options) {
+    this.default = {
+        formId: '',
+        url: '',
+        type: 'post',
         handlerFun: '',
     };
-    this.option=$.extend({},this.default,options)
+    this.option = $.extend({}, this.default, options)
 };
-doSubmit.prototype={
-    run:function () {
-        var json={};
+doSubmit.prototype = {
+    run: function () {
+        var json = {};
         $(".modal-body .form-group").find("input").each(function (index) {
-            var name = $(this).attr("name")
+            var name = $(this).attr("name");
             var value = $(this).val();
-            json[name]=value;
+            json[name] = value;
         });
-        if (this.option.handlerFun !=undefined && !this.option.handlerFun(json)){
+        if (this.option.handlerFun != undefined && !this.option.handlerFun(json)) {
             return false;
         }
         $.ajax({
@@ -64,7 +64,7 @@ doSubmit.prototype={
             url: this.option.url,
             success: function (result) {
                 console.log(result);
-                if (result.code>0){
+                if (result.code > 0) {
                     toastr.success(result.msg);
                     // toastr.options.positionClass = 'toast-top-center';
                     // toastr.warning('warning');
@@ -76,11 +76,45 @@ doSubmit.prototype={
                 }
             }
         });
-        if (this.option.formId!=''){
-            $("#"+this.option.formId).bootstrapTable('refresh');
-        }else {
-            $("gridTable").bootstrapTable('refresh');
-        }
+        var formId = this.option.formId;
+        setTimeout(function () {
+            if (formId != '') {
+                $("#" + formId).bootstrapTable('refresh', {});
+            } else {
+                $("gridTable").bootstrapTable('refresh', {});
+            }
+        }, 100);
 
     }
+
 };
+getselect = function (formId) {
+    if (formId == undefined) {
+        formId = 'gridTable';
+    }
+    var rows = $('#' + formId).bootstrapTable('getSelections');
+    var json = [];
+    for (item in rows) {
+        var id = rows[item].id;
+        json.push(id);
+    }
+    var ids = JSON.stringify(json);
+    ids=ids.replace("[","");
+    ids=ids.replace("]","");
+    return ids;
+};
+deleteData = function (ids, url, formId) {
+    $.ajax({
+        url: url,
+        data: {ids: ids},
+        type: "post",
+        success: function (result) {
+            if (result.code > 0) {
+                toastr.info(result.msg);
+                $("#" + formId).bootstrapTable('refresh', {});
+            } else {
+                toastr.error(result.msg);
+            }
+        }
+    });
+}

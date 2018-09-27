@@ -49,4 +49,10 @@ public class UserController extends BaseController {
     public SrUser selectOne(Integer id){
         return userService.selectByPrimaryKey(id);
     }
+    @PostMapping("/delete")
+    @ResponseBody
+    public AjaxResult delete(){
+         Integer num=userService.deleteIds();
+         return del_msg(num);
+    }
 }

@@ -115,6 +115,7 @@
                 title: '职级',
                 formatter: linkFormatter
             }, {
+                field: 'id',
                 title: '操作',
                 align: 'center',
                 valign: 'middle',
@@ -131,7 +132,6 @@
             },
         });
     };
-
     function fmSex(value) {
         var text = "男";
         if (value == 0) {
@@ -142,15 +142,15 @@
     $('#myModal').on('show.bs.modal',function(event){
         var modal = $(this);
         var btnThis = $(event.relatedTarget);
-        console.log(btnThis.data('id'));
-        if (btnThis.data('id')=="add"){
+        var id=btnThis.data('id');
+        if (btnThis.data('id')==0){
 
         }else {
             url="edit";
             $.ajax({
                 url:"selectOne",
                 type:"get",
-                data:{id:1},
+                data:{id:id},
                 success:function (msg) {
                     console.log(msg);
                     var i=0;
@@ -165,7 +165,8 @@
                         target[0].value=2018;
                     }
                 }
-            })
+            });
+
         }
 
 
@@ -174,13 +175,20 @@
         return "<a href='" + value + "' title=" + value + " target='_blank'>" + value + "</a>";
     }
 
-    function addFunctionAlty() {
+    function addFunctionAlty(value) {
         return [
-            '<button type="button" data-id="edit" id="btn_edit" class="btn btn-default" data-toggle="modal" data-target="#myModal">修改</button>  ',
-            '<button id="btn_delete" class="btn btn-warning">删除</button>'
+            '<button type="button" data-id='+value+' id="btn_edit" class="btn btn-default" data-toggle="modal" data-target="#myModal">修改</button>  ',
+            '<button id="btn_delete"  onclick="delect('+value+')" class="btn btn-warning">删除</button>'
         ].join('');
     }
-
+    function delect(id) {
+        var ids=id;
+        if (id=""||id==undefined){
+            ids=getselect('userTable');
+        }
+        var url='delete';
+        deleteData(ids,url,"userTable");
+    }
 
 </script>
 </html>

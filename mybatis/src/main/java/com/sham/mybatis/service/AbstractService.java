@@ -113,5 +113,19 @@ public abstract class AbstractService<T> extends WrapperDao {
         formData.setTotal(total);
         return formData;
     }
-
+    public Integer deleteByid(Object obj){
+        return mapper.deleteByPrimaryKey(obj);
+    }
+    public Integer deleteIds(){
+        ParamData paramData=new ParamData();
+        String strId= (String) paramData.get("ids");
+        String[] ids=strId.split(",");
+        Integer num=0;
+        if (ids!=null){
+            for (String id:ids) {
+                num+=deleteByid(id);
+            }
+        }
+        return num;
+    }
 }
