@@ -25,24 +25,15 @@
 
 </body>
 <script>
+    var url='add';
     $(function () {
-        var url="add";
         InitMainTable();
-        $('.form_date').datetimepicker({
-            language: 'zh',
-            weekStart: 1,
-            todayBtn: 1,
-            autoclose: 1,
-            todayHighlight: 1,
-            startView: 2,
-            minView: 2,
-            forceParse: 0
+        initDom("myModal","selectOne",function (msg) {
+            // msg.birthdate='2018-9-28';
+            url="edit";
         });
-
-
     });
     var $table;
-
     function InitMainTable() {
         var queryUrl = '/user/userList';
         $table = $('#userTable').bootstrapTable({
@@ -139,38 +130,7 @@
         }
         return "<div style='color: green'>" + text + "</div>";
     }
-    $('#myModal').on('show.bs.modal',function(event){
-        var modal = $(this);
-        var btnThis = $(event.relatedTarget);
-        var id=btnThis.data('id');
-        if (btnThis.data('id')==0){
 
-        }else {
-            url="edit";
-            $.ajax({
-                url:"selectOne",
-                type:"get",
-                data:{id:id},
-                success:function (msg) {
-                    console.log(msg);
-                    var i=0;
-                    for (var item in msg){
-                        var target= $(".modal input[name="+item+"]");
-                        if (target[0]!=undefined){
-                            target[0].value=msg[item];
-                        }
-                    }
-                    var target= $("input[name=birthdate]");
-                    if (target[0]!=undefined){
-                        target[0].value=2018;
-                    }
-                }
-            });
-
-        }
-
-
-    });
     function linkFormatter(value) {
         return "<a href='" + value + "' title=" + value + " target='_blank'>" + value + "</a>";
     }

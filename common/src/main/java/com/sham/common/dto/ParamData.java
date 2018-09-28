@@ -50,7 +50,10 @@ public class ParamData extends HashMap {
                 sb.append(buff,0,len);
             }
             JSONObject jsonObject = (JSONObject) JSONObject.parse(sb.toString());
-            super.putAll(jsonObject);
+            if (jsonObject!=null){
+                super.putAll(jsonObject);
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }

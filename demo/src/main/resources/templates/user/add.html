@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body">
                 <div class="form-group hide">
-                    <input type="text" class="form-control" name="id" value="0">
+                    <input type="text" id="id" class="form-control" name="id" value="0">
                 </div>
                 <div class="form-group">
                     <label>姓名</label>
@@ -53,9 +53,23 @@
     <script>
 
     $("#btn_submit").bind("click",function () {
+        var url='add';
+        if ($("#id").val()>0){
+            url="edit";
+        }
         var obj=new doSubmit({formId:'userTable',url:url,handlerFun:function (json) {
                 return true;
             }}).run();
-    })
+    });
+    $('.form_date').datetimepicker({
+        language: 'zh',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0
+    });
     </script>
 </div>
