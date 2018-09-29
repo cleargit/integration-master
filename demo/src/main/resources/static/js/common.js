@@ -196,6 +196,27 @@ doSubmit.prototype = {
 
     }
 };
+var doSearch=function(options){
+    this.default = {
+        searchId:'',
+        formId: '',
+        handlerFun:''
+    };
+    this.option = $.extend({}, this.default, options)
+};
+doSearch.prototype={
+    run:function () {
+        var json = {};
+        $(".modal-body .form-group").find("input").each(function (index) {
+            var name = $(this).attr("name");
+            var value = $(this).val();
+            json[name] = value;
+        });
+        if (this.option.handlerFun != undefined && !this.option.handlerFun(json)) {
+            return false;
+        }
+    }
+};
 getselect = function (formId) {
     if (formId == undefined) {
         formId = 'gridTable';
@@ -230,6 +251,7 @@ deleteData = function (ids, url, formId) {
        }
     });
 };
+
 initDom=function (modalId,url,handleFun) {
     if (modalId==""){
         modalId="modal"

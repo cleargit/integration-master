@@ -1,23 +1,42 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="common/head :: htmlhead" th:with="title='favorites'">
 <body>
-<!--<div class="search">-->
-    <!--<div class="form-inline">-->
-        <!--<div class="form-group">-->
-            <!--<label>姓名</label>-->
-            <!--<input type="text" class="form-control" name="name">-->
-        <!--</div>-->
-        <!--<div class="form-group">-->
-            <!--<label>专长</label>-->
-            <!--<input type="text" class="form-control" name="expertise">-->
-        <!--</div>-->
-        <!--<div class="form-group">-->
-            <!--<label>职级</label>-->
-            <!--<input type="text" class="form-control" name="expertise">-->
-        <!--</div>-->
-    <!--</div>-->
+<div class="row" style="padding: 30px;border: 2px #cccccc solid">
+    <div class="col-lg-4">
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">姓名</span>
+            <input type="text" class="form-control" placeholder="" aria-describedby="basic-addon1">
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon2">专长</span>
+            <input type="text" class="form-control" placeholder="" aria-describedby="basic-addon2">
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon3">职务</span>
+            <input type="text" class="form-control" placeholder="" aria-describedby="basic-addon3">
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon4">职务</span>
+            <input type="text" class="form-control" placeholder="" aria-describedby="basic-addon3">
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon5">职务</span>
+            <input type="text" class="form-control" placeholder="" aria-describedby="basic-addon3">
+        </div>
+    </div>
+    <div class="col-md-9" style="margin-top: 20px;">
+        <button class="btn btn-info" onclick="msearch()"><span class="glyphicon glyphicon-search"></span>搜索</button>
+    </div>
+</div>
 
-<!--</div>-->
 <span th:text="${#calendars.format(today,'dd MMMM yyyy')}">13 May 2011</span>
 <div th:replace="user/add :: Add"></div>
 <div th:replace="common/toolbar :: toolbar"></div>
@@ -25,15 +44,24 @@
 
 </body>
 <script>
-    var url='add';
+    var url = 'add';
     $(function () {
         InitMainTable();
-        initDom("myModal","selectOne",function (msg) {
+        initDom("myModal", "selectOne", function (msg) {
             // msg.birthdate='2018-9-28';
-            url="edit";
+            url = "edit";
         });
     });
     var $table;
+    function msearch() {
+        var options = $('#userTable').bootstrapTable('refresh', {
+            query:
+                {
+                    Name:123,
+                    Pass:12
+                }
+        });
+    }
     function InitMainTable() {
         var queryUrl = '/user/userList';
         $table = $('#userTable').bootstrapTable({
@@ -63,6 +91,7 @@
             //得到查询的参数
             queryParams: function (params) {
                 //这里的键的名字和控制器的变量名必须一致，这边改动，控制器也需要改成一样的
+                console.log(params);
                 var temp = {
                     rows: params.limit,                         //页面大小
                     page: (params.offset / params.limit) + 1,   //页码
@@ -123,6 +152,7 @@
             },
         });
     };
+
     function fmSex(value) {
         var text = "男";
         if (value == 0) {
@@ -137,17 +167,18 @@
 
     function addFunctionAlty(value) {
         return [
-            '<button type="button" data-id='+value+' id="btn_edit" class="btn btn-default" data-toggle="modal" data-target="#myModal">修改</button>  ',
-            '<button id="btn_delete"  onclick="delect('+value+')" class="btn btn-warning">删除</button>'
+            '<button type="button" data-id=' + value + ' id="btn_edit" class="btn btn-default" data-toggle="modal" data-target="#myModal">修改</button>  ',
+            '<button id="btn_delete"  onclick="delect(' + value + ')" class="btn btn-warning">删除</button>'
         ].join('');
     }
+
     function delect(id) {
-        var ids=id;
-        if (id=""||id==undefined){
-            ids=getselect('userTable');
+        var ids = id;
+        if (id = "" || id == undefined) {
+            ids = getselect('userTable');
         }
-        var url='delete';
-        deleteData(ids,url,"userTable");
+        var url = 'delete';
+        deleteData(ids, url, "userTable");
     }
 
 </script>
