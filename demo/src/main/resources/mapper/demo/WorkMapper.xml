@@ -1,22 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sham.demo.mapper.SrUserMapper">
-  <resultMap id="BaseResultMap" type="com.sham.demo.model.SrUser">
+<mapper namespace="com.sham.demo.mapper.WorkMapper">
+  <resultMap id="BaseResultMap" type="com.sham.demo.model.Work">
     <!--
       WARNING - @mbg.generated
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="alias" jdbcType="VARCHAR" property="alias" />
-    <result column="sex" jdbcType="TINYINT" property="sex" />
-    <result column="expertise" jdbcType="VARCHAR" property="expertise" />
-    <result column="birthDate" jdbcType="INTEGER" property="birthdate" />
-    <result column="category" jdbcType="VARCHAR" property="category" />
-    <result column="rank" jdbcType="VARCHAR" property="rank" />
-    <result column="remart" jdbcType="VARCHAR" property="remart" />
-    <result column="weight" jdbcType="INTEGER" property="weight" />
+    <result column="userId" jdbcType="INTEGER" property="userid" />
+    <result column="date" jdbcType="INTEGER" property="date" />
   </resultMap>
-
   <sql id="where_sql">
     <where>
       <if test="where_sql !=null">
@@ -38,11 +30,12 @@
   </sql>
 
   <sql id="Base_Table_Name">
-    sr_user
+    work
   </sql>
-  <select id="findAll" resultMap="BaseResultMap">
+  <select id="findAll" resultType="com.sham.demo.bo.WorkBo">
     select  * from
-    <include refid="Base_Table_Name" />
+    <include refid="Base_Table_Name" /> a
+    left  join sr_user b on  b.id=a.userId
     <include refid="where_sql" />
     <include refid="order_sql" />
     <include refid="limit_sql" />

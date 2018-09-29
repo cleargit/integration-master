@@ -44,12 +44,12 @@ public abstract class AbstractService<T> extends WrapperDao {
     public T selectByPrimaryKey(Integer id){
         return mapper.selectByPrimaryKey(id);
     }
-    public  T selectOne(Object param){
+    public  T findOne(Object param){
         String sqlId="findAll";
         List<T> list=selectBySqlId(sqlId,param);
         return list!=null&&list.size()>0 ?list.get(0):null;
     }
-    public  T seleOne(String mapper,Object param){
+    public  T findOne(String mapper,Object param){
         List<T> list=selectBySqlId(mapper,param);
         return list!=null&&list.size()>0 ?list.get(0):null;
     }
@@ -64,11 +64,13 @@ public abstract class AbstractService<T> extends WrapperDao {
 
         return (List)rows;
     }
-    public List<T> findForList(Object param) {
+    public Object findForList(Object param) {
         String sqlId="findAll";
         return (List<T>) findForList(sqlId,param);
     }
-
+    public Object findAll(){
+        return this.findForList(null);
+    }
     public int updateSelective(T entity){
         return mapper.updateByPrimaryKeySelective(entity);
     }

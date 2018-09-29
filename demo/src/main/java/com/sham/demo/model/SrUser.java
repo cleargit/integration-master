@@ -51,6 +51,11 @@ public class SrUser extends BaseModel {
     private String remart;
 
     /**
+     * 权值
+     */
+    private Integer weight;
+
+    /**
      * @return id
      */
     public Integer getId() {
@@ -206,5 +211,23 @@ public class SrUser extends BaseModel {
      */
     public void setRemart(String remart) {
         this.remart = remart;
+    }
+
+    /**
+     * 获取权值
+     *
+     * @return weight - 权值
+     */
+    public Integer getWeight() {
+        return weight;
+    }
+
+    /**
+     * 设置权值
+     *
+     * @param weight 权值
+     */
+    public void setWeight(Integer weight) {
+        this.weight = weight;
     }
 }

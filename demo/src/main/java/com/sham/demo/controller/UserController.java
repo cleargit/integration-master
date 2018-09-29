@@ -4,14 +4,16 @@ import com.sham.common.base.BaseController;
 import com.sham.common.dto.AjaxResult;
 import com.sham.common.dto.FormData;
 import com.sham.demo.model.SrUser;
+import com.sham.demo.model.Work;
 import com.sham.demo.server.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("user")
@@ -34,7 +36,7 @@ public class UserController extends BaseController {
     @PostMapping("/add")
     @ResponseBody
     public AjaxResult add(SrUser user) {
-        int num = userService.insertSelective(user);
+        int num = userService.insert(user);
         return add_msg(num);
     }
 
@@ -44,15 +46,34 @@ public class UserController extends BaseController {
         int num = userService.updateSelective(user);
         return edit_msg(num);
     }
+
     @GetMapping("/selectOne")
     @ResponseBody
-    public SrUser selectOne(Integer id){
+    public SrUser selectOne(Integer id) {
         return userService.selectByPrimaryKey(id);
     }
+
     @PostMapping("/delete")
-    @ResponseBody
-    public AjaxResult delete(){
-         Integer num=userService.deleteIds();
-         return del_msg(num);
+    public AjaxResult delete() {
+        Integer num = userService.deleteIds();
+        return del_msg(num);
     }
+    @GetMapping("/work")
+    public String work() {
+        return "user/work";
+    }
+    @GetMapping("/allot")
+    @ResponseBody
+    public AjaxResult allot() {
+        userService.allot();
+        return sussess_msg("分配成功");
+    }
+
+    @GetMapping("/reAllot")
+    @ResponseBody
+    public AjaxResult reAllot(Integer num) {
+
+        return  userService.allot(num);
+    }
+
 }

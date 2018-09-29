@@ -1,7 +1,89 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="common/head :: htmlhead" th:with="title='favorites'">
-
 <body>
+<div id="content" style="width: 900px;margin: 24% 40%">
+    <div class="panel-group" id="accordion" style="float: left">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <div data-toggle="collapse" style="width: 350px" class="alert alert-success"
+                         data-parent="#accordion" href="#show">
+                        <span style="margin-right: 30px" class="glyphicon glyphicon-align-left"
+                              aria-hidden="true"></span>
+                        <apan> 查看未来7天看守人员</apan>
+                    </div>
+                </h4>
+            </div>
+            <div id="show" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <ul id="mul">
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="end">
+        <div id="mulEnd">
+            <li><span class="label label-default lab">2018-09-30</span>xxx</li>
+            <li><span class="label label-default lab">2018-09-30</span>xxx</li>
+        </div>
+    </div>
+</div>
 
 </body>
+<script>
+    $(function () {
+        init("", "mul");
+    });
+
+    function init(param, domId) {
+        var lis = "";
+        $.ajax({
+            url: "/work/getPerson",
+            type: "get",
+            data: param,
+            success: function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    var date = fmtDate(data[i].date);
+                    lis += "<li><span class='label label-default lab'>" + date + "" + "</span>　" + data[i].name + "</li>"
+                }
+                if (data.length < 7) {
+                    lis += "<a >没有更多了</a>";
+                } else {
+                    lis += "<a id='more'><button class='btn-default btn'>加载更多</button></a>";
+                }
+                $("#" + domId).append(lis);
+                $("#more").bind("click", function () {
+                    var json = {begin: 7, end: 30};
+                    init(json, "mulEnd");
+                });
+            }
+        })
+    }
+</script>
+<style>
+    li {
+        margin-top: 5px;
+        margin-bottom: 20px;
+        font-size: 16px;
+    }
+
+    .lab {
+        font-size: 13px;
+    }
+
+    .end {
+        float: left;
+        margin-top: 100px;
+        height: 300px;
+
+        border: 1px
+    }
+
+    #mulEnd li {
+        display: inline-block;
+    }
+
+</style>
 </html>

@@ -16,6 +16,6 @@ public class DemoService {
     public static void main(String[] args) {
         Calendar calendar=Calendar.getInstance();
         calendar.setTime(new Date());
-        System.out.println(calendar.getActualMaximum(Calendar.DAY_OF_YEAR));
+        System.out.println(calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
     }
 }
