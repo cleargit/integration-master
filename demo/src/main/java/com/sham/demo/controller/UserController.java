@@ -3,6 +3,7 @@ package com.sham.demo.controller;
 import com.sham.common.base.BaseController;
 import com.sham.common.dto.AjaxResult;
 import com.sham.common.dto.FormData;
+import com.sham.demo.model.Info;
 import com.sham.demo.model.SrUser;
 import com.sham.demo.server.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class UserController extends BaseController {
 
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult add(SrUser user) {
+    public AjaxResult add(SrUser user, Info info) {
         int num = userService.insert(user);
         return add_msg(num);
     }

@@ -1,7 +1,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="common/head :: htmlhead" th:with="title='favorites'">
 <body>
-<div class="row" style="padding: 30px;border: 2px #cccccc solid">
+<div style="display: flex;justify-content:center">
+
+
+<div class="row" style="width: 99%;padding: 30px;border: 1px #cccccc solid">
     <div class="col-lg-4">
         <div class="input-group">
             <span class="input-group-addon" id="basic-addon1">姓名</span>
@@ -36,7 +39,7 @@
         <button class="btn btn-info" onclick="msearch()"><span class="glyphicon glyphicon-search"></span>搜索</button>
     </div>
 </div>
-
+</div>
 <span th:text="${#calendars.format(today,'dd MMMM yyyy')}">13 May 2011</span>
 <div th:replace="user/add :: Add"></div>
 <div th:replace="common/toolbar :: toolbar"></div>

@@ -1,5 +1,6 @@
 package com.sham.demo.model;
 
+import com.sham.common.annotation.ExportCsv;
 import com.sham.common.base.BaseModel;
 import javax.persistence.*;
 
@@ -74,6 +75,7 @@ public class SrUser extends BaseModel {
      *
      * @return name - 姓名
      */
+    @ExportCsv(title = "名字",order = 2)
     public String getName() {
         return name;
     }
@@ -92,6 +94,7 @@ public class SrUser extends BaseModel {
      *
      * @return alias - 别名
      */
+    @ExportCsv(title = "别名",order = 1)
     public String getAlias() {
         return alias;
     }
@@ -110,6 +113,7 @@ public class SrUser extends BaseModel {
      *
      * @return sex - 性别
      */
+    @ExportCsv(title = "性别",order = 3)
     public Byte getSex() {
         return sex;
     }

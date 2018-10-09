@@ -1,18 +1,27 @@
 package com.sham.demo.server;
 
+import com.sham.common.annotation.ExportCsv;
+import com.sham.common.base.BaseModel;
 import com.sham.common.dto.AjaxResult;
+import com.sham.common.dto.AnnotationContain;
+import com.sham.common.processor.ListenerProcessor;
+import com.sham.common.utils.CsvUtil;
 import com.sham.common.utils.DateUtil;
 import com.sham.demo.bo.WorkBo;
+import com.sham.demo.model.Info;
 import com.sham.demo.model.SrUser;
 import com.sham.demo.model.Work;
 import com.sham.mybatis.service.AbstractService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.*;
 
 @Service
 public class UserService extends AbstractService<SrUser> {
@@ -69,4 +78,41 @@ public class UserService extends AbstractService<SrUser> {
         info.setWeight(user.getWeight()+1);
         return super.insertSelective(info);
     }
+    public void csv(List<SrUser> data, OutputStream outputStream,Class cls) throws Exception {
+        this.csv(data,outputStream,cls,false);
+    }
+    public void csv(List<SrUser> data, OutputStream outputStream,Class cls,Boolean append) throws Exception {
+        boolean flag=false;
+        Map<Integer,String> map=new HashMap<>();
+        List<Map<Integer, Object>> datalist =new LinkedList<>();
+        List<Integer> sort=new LinkedList<>();
+        Method[] methods=cls.getMethods();
+        for(SrUser user:data){
+            Map<Integer,Object> row=new HashMap<>();
+            Object object=cls.newInstance();
+            BeanUtils.copyProperties(user,object);
+            for (Method method:methods){
+                String name=method.getName();
+                if (!name.startsWith("get")) continue;
+                ExportCsv annotation=method.getAnnotation(ExportCsv.class);
+                if (annotation==null) continue;
+                int order=annotation.order();
+                Object value=method.invoke(object,null);
+                row.put(order,value);
+                if (!flag){
+                    sort.add(order);
+                    String title=annotation.title();
+                    map.put(order,title);
+                }
+            }
+            flag=true;
+            datalist.add(row);
+        }
+        Collections.sort(sort);
+        outputStream.write( CsvUtil.exportCsv(map,datalist,sort,append));
+        outputStream.flush();
+        outputStream.close();
+    }
+
+
 }
