@@ -29,13 +29,7 @@ public class DemoApplicationTests {
     @Test
     public void test() {
         try {
-            FileOutputStream fileOutputStream=new FileOutputStream("demo.Csv",true);
-            FileInputStream fileInputStream=new FileInputStream("demo.Csv");
-            boolean append=true;
-            if (fileInputStream.read()<=-1){
-                append=false;
-            }
-            userService.csv((List<SrUser>) userService.findAll(),fileOutputStream, DemoBo.class,append);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
