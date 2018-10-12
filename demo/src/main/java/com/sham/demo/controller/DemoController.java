@@ -1,11 +1,15 @@
 package com.sham.demo.controller;
 
+import com.sham.excel.ExeclUtil;
 import com.sham.common.Cache.CacheService;
 import com.sham.common.annotation.ControllerLog;
 import com.sham.common.core.IConfig;
 import com.sham.common.dto.ParamData;
 import com.sham.common.utils.Iputil;
 import com.sham.common.utils.UploadUtil;
+import com.sham.demo.dto.DemoBo;
+import com.sham.demo.model.SrUser;
+import com.sham.demo.server.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -19,6 +23,9 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class DemoController {
@@ -28,7 +35,8 @@ public class DemoController {
 
     @Autowired
     RedisTemplate redisTemplate;
-
+    @Autowired
+    UserService userService;
     @Value("${upload.dir}")
     String dir;
     @Value("${upload.path}")
@@ -80,6 +88,15 @@ public class DemoController {
     public String upload(HttpServletRequest request) throws IOException {
         System.out.println(Iputil.getIp(request));
         return UploadUtil.uploadImg(request, dir, path);
+    }
+
+    @RequestMapping(value = "execl")
+    @ResponseBody
+    public void execl() {
+        List<SrUser> list = userService.selectAll();
+        Map<String, String> map = new HashMap<>();
+        map.put("title", "哈哈");
+        ExeclUtil.exportExecl("common-template.xls", list, DemoBo.class, map, "demo");
     }
 
     @ControllerLog("abc")
