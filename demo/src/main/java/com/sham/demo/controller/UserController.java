@@ -60,7 +60,7 @@ public class UserController extends BaseController {
 
     @GetMapping("/work")
     public String work() {
-        return "user/work";
+        return "user/date";
     }
 
     @GetMapping("/allot")

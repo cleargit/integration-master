@@ -101,12 +101,6 @@ public class ExcelTemplate {
         }
     }
 
-    public void setData(List<Integer> sort, List<Map<Integer, Object>> dataList) {
-        Map<Integer, Object> map = null;
-        for (Iterator<Map<Integer, Object>> iterator = dataList.iterator(); iterator.hasNext(); ) {
-            map = iterator.next();
-        }
-    }
 
     public void setHeader(List<ExeclHeader> header) {
         if (this.initHeadColIndex >= 0) {

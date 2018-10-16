@@ -1,20 +1,16 @@
 package com.sham.demo.server;
 
-import com.sham.common.annotation.ExportCsv;
 import com.sham.common.dto.AjaxResult;
-import com.sham.common.utils.CsvUtil;
 import com.sham.common.utils.DateUtil;
 import com.sham.demo.bo.WorkBo;
 import com.sham.demo.model.SrUser;
 import com.sham.demo.model.Work;
 import com.sham.mybatis.service.AbstractService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.OutputStream;
-import java.lang.reflect.Method;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class UserService extends AbstractService<SrUser> {
@@ -26,7 +22,7 @@ public class UserService extends AbstractService<SrUser> {
     public void allot() {
         Integer days = DateUtil.getMonthDay();
         Map<String, Object> map = new HashMap<>();
-        Map<Integer, WorkBo> person = workService.getPerson(null);
+        Map<Integer, WorkBo> person = workService.getPerson(null,false);
         map.put("order_sql", "order by weight desc");
         for (int i = DateUtil.getDay() + 1; i <= days; i++) {
             if (!person.containsKey(i)) {
@@ -60,7 +56,7 @@ public class UserService extends AbstractService<SrUser> {
             Work work = workService.findByDate(date);
             work.setUserid(user.getId());
             workService.updateSelective(work);
-            user.setWeight(user.getWeight() + 1);
+            user.setWeight(user.getWeight() - 1);
             super.updateSelective(user);
         }
         return new AjaxResult("已对未来" + num + "天重新分配");

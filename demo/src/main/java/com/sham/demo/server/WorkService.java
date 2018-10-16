@@ -15,7 +15,7 @@ import java.util.Map;
 @Service
 public class WorkService extends AbstractService<Work> {
     //获取本月已安排的人数
-    public Map<Integer, WorkBo> getPerson(Map<String,Object> map) {
+    public Map<Integer, WorkBo> getPerson(Map<String,Object> map,Boolean ret) {
         if (map==null){
             map=new HashMap<>();
         }
@@ -25,9 +25,10 @@ public class WorkService extends AbstractService<Work> {
         Map<Integer, WorkBo> result = new HashMap<>();
         for (WorkBo item : list) {
             Integer day = Integer.parseInt(DateUtil.fmDate(item.getDate(), "dd"));
-            if (day >= nowDay) {
+            if (day >= nowDay || ret) {
                 result.put(day, item);
             }
+
         }
         return result;
     }
@@ -54,19 +55,21 @@ public class WorkService extends AbstractService<Work> {
 
     public List<WorkBo> getWorkPerson() {
         ParamData paramData=new ParamData();
-        Integer begin=0;
-        Integer end=7;
+        String begin="0";
+        String end="7";
         if (paramData.containsKey("begin")){
-            begin=(Integer) paramData.get("begin");
+            begin=(String) paramData.get("begin");
         }
         if (paramData.containsKey("end")){
-            end= (Integer) paramData.get("end");
+            end= (String) paramData.get("end");
         }
         Map<String,Object> pamam=new HashMap<>();
         pamam.put("limit_sql",String.format("limit %s , %s",begin,end));
-        Map<Integer, WorkBo> map= this.getPerson(pamam);
+        Map<Integer, WorkBo> map= this.getPerson(pamam,true);
         List<WorkBo> list=new ArrayList<>();
         for (Map.Entry<Integer,WorkBo> entry: map.entrySet()) {
+            WorkBo workBo=entry.getValue();
+            workBo.setDay(DateUtil.fmDate(workBo.getDate(),"dd"));
             list.add(entry.getValue());
         }
         return list;

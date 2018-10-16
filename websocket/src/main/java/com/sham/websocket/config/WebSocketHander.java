@@ -1,15 +1,19 @@
 package com.sham.websocket.config;
 
 import com.sham.common.dto.WebSocketData;
+import com.sham.common.utils.ComUtil;
 import com.sham.common.utils.DateUtil;
 import com.sham.common.utils.LoggerUtils;
 import com.sham.websocket.dto.SessionContain;
 import com.sham.websocket.service.WebSocketService;
+import org.springframework.util.StringUtils;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Iterator;
 
 public class WebSocketHander implements WebSocketHandler {
