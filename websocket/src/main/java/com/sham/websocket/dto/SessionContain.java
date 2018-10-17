@@ -20,6 +20,10 @@ public class SessionContain {
         SessionContain.containMap = containMap;
     }
 
+    public static SessionContain getSessionContain(WebSocketSession session){
+        return containMap.get(session.getId());
+    }
+
     public WebSocketSession getSession() {
         return session;
     }

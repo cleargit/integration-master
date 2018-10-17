@@ -2,19 +2,23 @@ package com.sham.common.dto;
 
 public class WebSocketData {
     private String sessionId;
-    private Object object;
+    private Object body;
     private Integer userId;
     private Integer toUserId;
-
-    public WebSocketData(Object object, Integer userId, Integer toUserId) {
-        this.object = object;
-        this.userId = userId;
-        this.toUserId = toUserId;
+    private String msgId;
+    private String formId;
+    public WebSocketData() {
     }
 
-    public WebSocketData(Object object, Integer toUserId) {
-        this.object = object;
-        this.toUserId = toUserId;
+    public WebSocketData(String sessionId, Object body) {
+        this.sessionId = sessionId;
+        this.body = body;
+    }
+
+    public WebSocketData(String sessionId, String formId, Object body) {
+        this.sessionId = sessionId;
+        this.body = body;
+        this.formId = formId;
     }
 
     public String getSessionId() {
@@ -25,12 +29,12 @@ public class WebSocketData {
         this.sessionId = sessionId;
     }
 
-    public Object getObject() {
-        return object;
+    public Object getBody() {
+        return body;
     }
 
-    public void setObject(Object object) {
-        this.object = object;
+    public void setBody(Object body) {
+        this.body = body;
     }
 
     public Integer getUserId() {
@@ -47,5 +51,21 @@ public class WebSocketData {
 
     public void setToUserId(Integer toUserId) {
         this.toUserId = toUserId;
+    }
+
+    public String getMsgId() {
+        return msgId;
+    }
+
+    public void setMsgId(String msgId) {
+        this.msgId = msgId;
+    }
+
+    public String getFormId() {
+        return formId;
+    }
+
+    public void setFormId(String formId) {
+        this.formId = formId;
     }
 }

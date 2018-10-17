@@ -283,3 +283,6 @@ initDom=function (modalId,url,handleFun) {
             });
         }
 })};
+addregister=function () {
+
+};

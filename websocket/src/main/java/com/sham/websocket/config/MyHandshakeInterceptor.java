@@ -22,6 +22,7 @@ public class MyHandshakeInterceptor extends HttpSessionHandshakeInterceptor {
     public void afterHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Exception ex) {
         HttpServletRequest servletRequest = ComUtil.getRequest();
         HttpServletResponse servletResponse = ComUtil.getReponse();
+        //小程序
         if (!StringUtils.isEmpty(servletRequest.getHeader("Sec-WebSocket-Protocol"))) {
             servletResponse.addHeader("Sec-WebSocket-Protocol", servletRequest.getHeader("Sec-WebSocket-Protocol"));
         }

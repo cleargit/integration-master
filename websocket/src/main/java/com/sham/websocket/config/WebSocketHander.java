@@ -1,38 +1,32 @@
 package com.sham.websocket.config;
 
+import com.alibaba.fastjson.JSON;
 import com.sham.common.dto.WebSocketData;
-import com.sham.common.utils.ComUtil;
 import com.sham.common.utils.DateUtil;
 import com.sham.common.utils.LoggerUtils;
 import com.sham.websocket.dto.SessionContain;
 import com.sham.websocket.service.WebSocketService;
-import org.springframework.util.StringUtils;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Iterator;
-
 public class WebSocketHander implements WebSocketHandler {
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        new SessionContain(session,session.getId(),DateUtil.getCurrTime());
-        LoggerUtils.info("新连接加入.. 当前人数:"+SessionContain.containMap.size());
-        WebSocketService.sendMsg(new WebSocketData("hello",0));
+        new SessionContain(session, session.getId(), DateUtil.getCurrTime());
+        LoggerUtils.info("新连接加入.. 当前人数:" + SessionContain.containMap.size());
     }
 
     @Override
     public void handleMessage(WebSocketSession session, WebSocketMessage<?> webSocketMessage) throws Exception {
-//        Integer userId=TokenManage.getUserId;
+        SessionContain contain = SessionContain.getSessionContain(session);
+        if (contain != null) {
+            String message = webSocketMessage.getPayload().toString();
+            WebSocketData data = JSON.parseObject(message, WebSocketData.class);
+            data.setSessionId(session.getId());
+            WebSocketService.dispenser(data);
 
-        //群发
-        Iterator iterator=SessionContain.getContainMap().values().iterator();
-        while (iterator.hasNext()){
-            SessionContain sessionContain= (SessionContain) iterator.next();
-            sessionContain.getSession().sendMessage(webSocketMessage);
         }
     }
 
@@ -44,7 +38,7 @@ public class WebSocketHander implements WebSocketHandler {
     @Override
     public void afterConnectionClosed(WebSocketSession webSocketSession, CloseStatus closeStatus) throws Exception {
         SessionContain.delSession(webSocketSession);
-        LoggerUtils.info("有人断开连接.. 当前人数:"+SessionContain.containMap.size());
+        LoggerUtils.info("有人断开连接.. 当前人数:" + SessionContain.containMap.size());
     }
 
     @Override

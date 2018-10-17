@@ -1,5 +1,6 @@
 package com.sham.demo.controller;
 
+import com.sham.common.dto.WebSocketData;
 import com.sham.excel.ExeclUtil;
 import com.sham.common.Cache.CacheService;
 import com.sham.common.annotation.ControllerLog;
@@ -10,6 +11,7 @@ import com.sham.common.utils.UploadUtil;
 import com.sham.demo.dto.DemoBo;
 import com.sham.demo.model.SrUser;
 import com.sham.demo.server.UserService;
+import com.sham.websocket.service.WebSocketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -97,6 +99,17 @@ public class DemoController {
         Map<String, String> map = new HashMap<>();
         map.put("title", "哈哈");
         ExeclUtil.exportExecl("common-template.xls", list, DemoBo.class, map, "demo");
+    }
+
+    @RequestMapping(value = "sub")
+    @ResponseBody
+    public void send(){
+       Map<String,String> map=WebSocketService.getsubscribe("8080");
+        for (Map.Entry<String,String> entry: map.entrySet()) {
+            String sessionId=entry.getKey();
+            String formid=entry.getValue();
+            WebSocketService.sendMsg(new WebSocketData(sessionId,formid,"body"));
+        }
     }
 
     @ControllerLog("abc")
