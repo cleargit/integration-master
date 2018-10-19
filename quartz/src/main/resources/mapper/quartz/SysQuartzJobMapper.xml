@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sham.quartz.mapper.SysQuartzJobMapper">
+  <resultMap id="BaseResultMap" type="com.sham.quartz.model.SysQuartzJob">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="jobName" jdbcType="VARCHAR" property="jobname" />
+    <result column="jobGroup" jdbcType="VARCHAR" property="jobgroup" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="cronExpression" jdbcType="VARCHAR" property="cronexpression" />
+    <result column="isConcurrent" jdbcType="TINYINT" property="isconcurrent" />
+    <result column="jobClass" jdbcType="VARCHAR" property="jobclass" />
+    <result column="methodName" jdbcType="VARCHAR" property="methodname" />
+    <result column="params" jdbcType="VARCHAR" property="params" />
+    <result column="jobStatus" jdbcType="VARCHAR" property="jobstatus" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="nextTime" jdbcType="TIMESTAMP" property="nexttime" />
+    <result column="previousTime" jdbcType="TIMESTAMP" property="previoustime" />
+    <result column="beanName" jdbcType="VARCHAR" property="beanname" />
+    <result column="startTime" jdbcType="TIMESTAMP" property="starttime" />
+    <result column="createdBy" jdbcType="INTEGER" property="createdby" />
+    <result column="createdAt" jdbcType="INTEGER" property="createdat" />
+    <result column="updatedBy" jdbcType="INTEGER" property="updatedby" />
+    <result column="updatedAt" jdbcType="INTEGER" property="updatedat" />
+  </resultMap>
+
+  <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <sql id="where_sql">
+    <where>
+      <if test="where_sql !=null">
+        ${where_sql}
+      </if>
+    </where>
+  </sql>
+
+  <sql id="order_sql">
+    <if test="order_sql !=null">
+      ${order_sql}
+    </if>
+  </sql>
+
+  <sql id="limit_sql">
+    <if test="limit_sql">
+      ${limit_sql}
+    </if>
+  </sql>
+
+  <sql id="Base_Table_Name">
+		sys_quartz_job
+	</sql>
+
+  <select id="findAll" resultMap="BaseResultMap">
+    select * from
+    <include refid="Base_Table_Name"/>
+    <include refid="where_sql"/>
+    <include refid="order_sql"/>
+    <include refid="limit_sql"/>
+  </select>
+  <select id="findCount" resultType="int">
+    select count(1) as ct from
+    <include refid="Base_Table_Name"/>
+    <include refid="where_sql"/>
+  </select>
+
+  <update id="createTable">
+    	CREATE TABLE IF NOT EXISTS `sys_quartz_job` (
+		  `id` int(10) NOT NULL AUTO_INCREMENT,
+		  `jobName` varchar(250) NOT NULL,
+		  `jobGroup` varchar(250) NOT NULL,
+		  `description` varchar(250) NOT NULL,
+		  `cronExpression` varchar(250) NOT NULL,
+		  `isConcurrent` tinyint(3) NOT NULL,
+		  `jobClass` varchar(250) NOT NULL,
+		  `methodName` varchar(250) NOT NULL,
+		  `params` varchar(500) NOT NULL DEFAULT '' COMMENT '参数',
+		  `jobStatus` varchar(50) NOT NULL DEFAULT '',
+		  `status` tinyint(3) NOT NULL,
+		  `nextTime` datetime DEFAULT NULL,
+		  `previousTime` datetime DEFAULT NULL,
+		  `beanName` varchar(250) DEFAULT NULL,
+		  `startTime` datetime DEFAULT NULL,
+		  `createdBy` int(10) NOT NULL DEFAULT '0',
+		  `createdAt` int(10) unsigned NOT NULL DEFAULT '0',
+		  `updatedBy` int(10) NOT NULL DEFAULT '0',
+		  `updatedAt` int(10) unsigned NOT NULL DEFAULT '0',
+		  PRIMARY KEY (`id`),
+		  UNIQUE KEY `jobName` (`jobName`,`jobGroup`)
+		) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='定时任务表';
+  	</update>
+</mapper>

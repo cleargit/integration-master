@@ -52,7 +52,7 @@
                 $('body').find('#' + modalId).remove();
             });
             return modalId;
-        }
+        };
 
         return {
             alert: function (options) {

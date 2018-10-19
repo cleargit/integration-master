@@ -22,5 +22,6 @@
         <module>security</module>
         <module>redis</module>
         <module>mongodb</module>
+        <module>quartz</module>
     </modules>
 </project>

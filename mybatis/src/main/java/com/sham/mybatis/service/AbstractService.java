@@ -64,7 +64,7 @@ public abstract class AbstractService<T> extends WrapperDao {
 
         return (List)rows;
     }
-    public Object findForList(Object param) {
+    public List<T> findForList(Object param) {
         String sqlId="findAll";
         return (List<T>) findForList(sqlId,param);
     }
