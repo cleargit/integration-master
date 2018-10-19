@@ -27,7 +27,8 @@ public class QuartzJobExecute {
         try {
             Class clazz = Class.forName(scheduleJob.getJobclass());
             Method[] methods = clazz.getMethods();
-            Object target = SpringUtil.getBean(clazz.getSimpleName());
+            String beanName=clazz.getSimpleName();
+            Object target = SpringUtil.getBean(beanName.substring(0,1).toLowerCase()+beanName.substring(1));
             for (Method md : methods) {
                 if (scheduleJob.getMethodname().equals(md.getName())) {
                     int i = md.getParameterCount();

@@ -18,8 +18,6 @@ public class SpringUtil implements ApplicationContextAware {
     }
 
     public static <T> T getBean(String beanName) {
-        System.out.println(applicationContext.containsBean(beanName));
-        System.out.println(applicationContext.containsBean(beanName.toLowerCase()));
         return applicationContext.containsBean(beanName) ? (T) applicationContext.getBean(beanName) : null;
     }
 
