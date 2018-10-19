@@ -22,7 +22,7 @@ public class MainController extends BaseController {
     }
     @GetMapping("login")
     public String login(){
-        return "admin/login";
+        return "index";
     }
     @GetMapping("/car")
     @ResponseBody

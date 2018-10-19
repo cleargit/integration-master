@@ -1,67 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+    <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+    <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/plugin/anime.min.js}"></script>
 </head>
 <body>
-<button onclick="remove()"> 移除</button>
+
 </body>
-<script>
-    function remove() {
-        removeSubscribe("8080");
-    }
-    var websocket=null;
-    var submap={};
-    connect=function () {
-        if ('WebSocket' in window) {
-            websocket = new WebSocket("ws://localhost:8080/websocket");
-        } else {
-            websocket = new SockJS("");
-        }
-        //连接发生错误的回调方法
-        websocket.onerror = function () {
-            console.log("WebSocket连接发生错误");
-        };
-
-        //连接成功建立的回调方法
-        websocket.onopen = function () {
-            console.log("WebSocket连接成功");
-            addSubcribe(window.location.href,function () {
-                console.log("callback")
-            },"8080")
-        };
-
-        //接收到消息的回调方法
-        websocket.onmessage = function (event) {
-            console.log(event);
-            var json=JSON.parse(event.data);
-            callback(json)
-        };
-        //连接关闭的回调方法
-        websocket.onclose = function () {
-            console.log("WebSocket连接关闭");
-        }
-    };
-    connect();
-    addSubcribe=function (url,fun,protocol) {
-        var formId=url+"#"+protocol;
-        var body={"formId":formId,"protocol":protocol};
-        submap[formId]={};
-        submap[formId].callback=fun;
-        var msg={"msgId":"10000","body":body};
-        websocket.send(JSON.stringify(msg));
-    };
-    removeSubscribe=function(protocol){
-        var msg={"msgId":"10001","body":protocol};
-        websocket.send(JSON.stringify(msg));
-    };
-    callback=function (json) {
-        var formId=json['formId'];
-        if (formId!=undefined && formId!=""){
-            var fun=submap[formId].callback;
-            fun(json);
-        }
-    }
-</script>
 </html>

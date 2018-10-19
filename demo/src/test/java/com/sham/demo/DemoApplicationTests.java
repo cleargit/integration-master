@@ -1,5 +1,8 @@
 package com.sham.demo;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.sham.common.utils.WxUtil;
 import com.sham.demo.model.EntityDemo;
 import com.sham.demo.server.EntityService;
 import com.sham.demo.server.UserService;
@@ -40,14 +43,11 @@ public class DemoApplicationTests {
     }
     @Test
     public void test1(){
-        EntityDemo entity=new EntityDemo();
-        entity.setId(99L);
-        entity.setDescription("iamshamer");
-        entity.setTitle("ti");
-        entityService.save(entity);
-        EntityDemo result=entityService.findByid(2L);
-        EntityDemo result2=entityService.findByid(99L);
-        entityService.remove(1L);
-        System.out.println();
+        JSONArray jsonArray=new JSONArray();
+        JSONObject jsonObject=new JSONObject();
+        jsonObject.put("type","click");
+        jsonObject.put("name","查看信息");
+        jsonObject.put("key","info");
+        WxUtil.setMenu(jsonObject);
     }
 }
