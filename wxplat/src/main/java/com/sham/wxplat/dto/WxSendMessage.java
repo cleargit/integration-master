@@ -1,16 +1,20 @@
-package com.sham.common.dto;
+package com.sham.wxplat.dto;
+
+
+import com.sham.wxplat.common.MessageUtil;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
 
-@XmlRootElement(name="xml")
+@XmlRootElement(name = "xml")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class WxInMessage {
-
-    // 开发者微信号
+public class WxSendMessage {
+    // 发送方的账号
     protected String FromUserName;
-    // 发送方帐号（一个OpenID）
+    // 接收方的账号(OpenID)
     protected String ToUserName;
     // 消息创建时间
     protected Long CreateTime;
@@ -21,26 +25,18 @@ public class WxInMessage {
      * voice 语音消息
      * video 视频消息
      * music 音乐消息
+     * news 图文消息
      */
     protected String MsgType;
-    // 消息id
-    protected Long MsgId;
+    // 图片消息媒体id，可以调用多媒体文件下载接口拉取数据
+    @XmlElementWrapper(name = "Image")
+    private String[] MediaId;
     // 文本内容
     private String Content;
-    // 图片链接（由系统生成）
-    private String PicUrl;
-    // 图片消息媒体id，可以调用多媒体文件下载接口拉取数据
-    private String MediaId;
-    /**
-     * 事件类型
-     * subscribe(订阅)
-     * unsubscribe(取消订阅)
-     * LOCATION(上报地理位置)
-     * CLICK(点击普通的菜单)
-     * VIEW(点击跳转链接的菜单)
-     */
-    private String Event;
 
+    private Integer ArticleCount;
+    @XmlElementWrapper(name = "Articles")
+    private List<WxNewsTemplate> item;
 
     public String getFromUserName() {
         return FromUserName;
@@ -74,12 +70,12 @@ public class WxInMessage {
         MsgType = msgType;
     }
 
-    public Long getMsgId() {
-        return MsgId;
+    public String[] getMediaId() {
+        return MediaId;
     }
 
-    public void setMsgId(Long msgId) {
-        MsgId = msgId;
+    public void setMediaId(String[] mediaId) {
+        MediaId = mediaId;
     }
 
     public String getContent() {
@@ -90,27 +86,30 @@ public class WxInMessage {
         Content = content;
     }
 
-    public String getPicUrl() {
-        return PicUrl;
+    public Integer getArticleCount() {
+        return ArticleCount;
     }
 
-    public void setPicUrl(String picUrl) {
-        PicUrl = picUrl;
+    public void setArticleCount(Integer articleCount) {
+        ArticleCount = articleCount;
     }
 
-    public String getMediaId() {
-        return MediaId;
+    public List<WxNewsTemplate> getItem() {
+        return item;
     }
 
-    public void setMediaId(String mediaId) {
-        MediaId = mediaId;
+    public void setItem(List<WxNewsTemplate> item) {
+        this.item = item;
     }
 
-    public String getEvent() {
-        return Event;
+    public void sendNews(List<WxNewsTemplate> list, int size) {
+        this.setItem(list);
+        this.setArticleCount(list.size());
+        this.setMsgType(MessageUtil.MESSAGE_NEWS);
     }
 
-    public void setEvent(String event) {
-        Event = event;
+    public void sendText(String text) {
+        this.setMsgType(MessageUtil.MESSAGEX_TEXT);
+        this.setContent(text);
     }
 }

@@ -62,7 +62,7 @@ public class UserService extends AbstractService<SrUser> {
         return new AjaxResult("已对未来" + num + "天重新分配");
     }
 
-    public Integer insert(SrUser info) {
+    public Integer insertUser(SrUser info) {
         Map<String, Object> map = new HashMap<>();
         map.put("order_sql", "order by weight desc");
         SrUser user = findOne(map);

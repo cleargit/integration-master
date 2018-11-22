@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sham.wxplat.mapper.WxsNewsMapper">
+  <resultMap id="BaseResultMap" type="com.sham.wxplat.model.WxsNews">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="picurl" jdbcType="VARCHAR" property="picurl" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="createdBy" jdbcType="INTEGER" property="createdby" />
+    <result column="createdAt" jdbcType="INTEGER" property="createdat" />
+    <result column="updatedBy" jdbcType="INTEGER" property="updatedby" />
+    <result column="updatedAt" jdbcType="INTEGER" property="updatedat" />
+  </resultMap>
+</mapper>

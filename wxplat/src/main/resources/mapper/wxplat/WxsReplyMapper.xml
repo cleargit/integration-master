@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sham.wxplat.mapper.WxsReplyMapper">
+  <resultMap id="BaseResultMap" type="com.sham.wxplat.model.WxsReply">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="templateId" jdbcType="VARCHAR" property="templateid" />
+    <result column="receive" jdbcType="VARCHAR" property="receive" />
+    <result column="inDate" jdbcType="INTEGER" property="indate" />
+  </resultMap>
+</mapper>

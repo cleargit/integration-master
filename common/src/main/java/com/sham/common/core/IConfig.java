@@ -1,5 +1,6 @@
 package com.sham.common.core;
 
+import com.sham.common.utils.LoggerUtils;
 import org.springframework.util.StringUtils;
 
 import java.io.IOException;
@@ -16,7 +17,8 @@ public class IConfig {
         try {
             prop.load(IConfig.class.getResourceAsStream(FILE_NAME));
         } catch (IOException e) {
-
+            LoggerUtils.info("读取配置失败");
+            e.printStackTrace();
         }
     }
 

@@ -23,5 +23,6 @@
         <module>redis</module>
         <module>mongodb</module>
         <module>quartz</module>
+        <module>wxplat</module>
     </modules>
 </project>

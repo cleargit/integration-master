@@ -17,6 +17,6 @@ public class TestService {
     @QuartzJob(title = "title",cron = "0/10 * * * * ?")
     public void l(){
         Object o=quartzJobService.selectAll();
-        System.out.println();
+        System.out.println(123);
     }
 }

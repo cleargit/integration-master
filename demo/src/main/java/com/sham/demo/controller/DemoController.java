@@ -1,5 +1,6 @@
 package com.sham.demo.controller;
 
+import com.sham.common.annotation.Initialize;
 import com.sham.common.dto.WebSocketData;
 import com.sham.excel.ExeclUtil;
 import com.sham.common.Cache.CacheService;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.HashMap;
@@ -39,11 +41,14 @@ public class DemoController {
     RedisTemplate redisTemplate;
     @Autowired
     UserService userService;
-    @Value("${upload.dir}")
-    String dir;
-    @Value("${upload.path}")
-    String path;
+    String dir="";
+    String path="";
 
+    @Initialize
+    public void init(){
+        dir=IConfig.getConfig("upload.dir");
+        path=IConfig.getConfig("upload.path");
+    }
     @RequestMapping(value = "get")
     @ResponseBody
     public Object getCache(String key) {

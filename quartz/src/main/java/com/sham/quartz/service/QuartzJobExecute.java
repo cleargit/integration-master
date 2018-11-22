@@ -1,6 +1,5 @@
 package com.sham.quartz.service;
 
-import com.sham.common.utils.ComUtil;
 import com.sham.common.utils.LoggerUtils;
 import com.sham.common.utils.SpringUtil;
 import com.sham.quartz.model.SysQuartzJob;

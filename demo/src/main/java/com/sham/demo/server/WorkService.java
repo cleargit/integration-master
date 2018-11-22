@@ -21,7 +21,7 @@ public class WorkService extends AbstractService<Work> {
         }
         Integer nowDay = DateUtil.getDay();
         map.put("where_sql", "FROM_UNIXTIME(date,'%Y%m') =DATE_FORMAT( CURDATE( ) , '%Y%m' )");
-        List<WorkBo> list = (List<WorkBo>) findForList(map);
+        List<WorkBo> list = findForList(map);
         Map<Integer, WorkBo> result = new HashMap<>();
         for (WorkBo item : list) {
             Integer day = Integer.parseInt(DateUtil.fmDate(item.getDate(), "dd"));
@@ -33,7 +33,7 @@ public class WorkService extends AbstractService<Work> {
         return result;
     }
 
-    public void insert(Work work) {
+    public void insertWork(Work work) {
         Map<String, Object> map = new HashMap<>();
         map.put("where_sql", "TO_DAYS(FROM_UNIXTIME(date))=to_days(" + work.getDate() + ")");
         Work info = findOne(map);

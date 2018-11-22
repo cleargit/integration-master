@@ -1,16 +1,16 @@
-package com.sham.common.dto;
+package com.sham.wxplat.dto;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name="xml")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class WxSendMessage {
-    // 发送方的账号
+public class WxInMessage {
+
+    // 开发者微信号
     protected String FromUserName;
-    // 接收方的账号(OpenID)
+    // 发送方帐号（一个OpenID）
     protected String ToUserName;
     // 消息创建时间
     protected Long CreateTime;
@@ -21,14 +21,27 @@ public class WxSendMessage {
      * voice 语音消息
      * video 视频消息
      * music 音乐消息
-     * news 图文消息
      */
     protected String MsgType;
-    // 图片消息媒体id，可以调用多媒体文件下载接口拉取数据
-    @XmlElementWrapper(name="Image")
-    private String[] MediaId ;
+    // 消息id
+    protected Long MsgId;
     // 文本内容
     private String Content;
+    // 图片链接（由系统生成）
+    private String PicUrl;
+    // 图片消息媒体id，可以调用多媒体文件下载接口拉取数据
+    private String MediaId;
+    /**
+     * 事件类型
+     * subscribe(订阅)
+     * unsubscribe(取消订阅)
+     * LOCATION(上报地理位置)
+     * CLICK(点击普通的菜单)
+     * VIEW(点击跳转链接的菜单)
+     */
+    private String Event;
+    //菜单按钮的key值
+    private String EventKey;
 
     public String getFromUserName() {
         return FromUserName;
@@ -62,12 +75,12 @@ public class WxSendMessage {
         MsgType = msgType;
     }
 
-    public String[] getMediaId() {
-        return MediaId;
+    public Long getMsgId() {
+        return MsgId;
     }
 
-    public void setMediaId(String[] mediaId) {
-        MediaId = mediaId;
+    public void setMsgId(Long msgId) {
+        MsgId = msgId;
     }
 
     public String getContent() {
@@ -76,5 +89,37 @@ public class WxSendMessage {
 
     public void setContent(String content) {
         Content = content;
+    }
+
+    public String getPicUrl() {
+        return PicUrl;
+    }
+
+    public void setPicUrl(String picUrl) {
+        PicUrl = picUrl;
+    }
+
+    public String getMediaId() {
+        return MediaId;
+    }
+
+    public void setMediaId(String mediaId) {
+        MediaId = mediaId;
+    }
+
+    public String getEvent() {
+        return Event;
+    }
+
+    public void setEvent(String event) {
+        Event = event;
+    }
+
+    public String getEventKey() {
+        return EventKey;
+    }
+
+    public void setEventKey(String eventKey) {
+        EventKey = eventKey;
     }
 }

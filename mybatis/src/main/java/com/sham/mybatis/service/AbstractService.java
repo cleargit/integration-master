@@ -41,6 +41,9 @@ public abstract class AbstractService<T> extends WrapperDao {
     public int insertSelective(T entity){
         return mapper.insertSelective(entity);
     }
+    public int insert(T entuty){
+        return mapper.insert(entuty);
+    }
     public T selectByPrimaryKey(Integer id){
         return mapper.selectByPrimaryKey(id);
     }
@@ -53,7 +56,7 @@ public abstract class AbstractService<T> extends WrapperDao {
         List<T> list=selectBySqlId(mapper,param);
         return list!=null&&list.size()>0 ?list.get(0):null;
     }
-    public  List<T> selectBySqlId(String mapper,Object param){
+    public <T> List<T> selectBySqlId(String mapper,Object param){
         Object rows = new ArrayList();
         try {
             rows = this.findForList(mapper, param);
@@ -64,10 +67,11 @@ public abstract class AbstractService<T> extends WrapperDao {
 
         return (List)rows;
     }
-    public List<T> findForList(Object param) {
+    public <T> List<T> findForList(Object param) {
         String sqlId="findAll";
-        return (List<T>) findForList(sqlId,param);
+        return this.selectBySqlId(sqlId,param);
     }
+
     public Object findAll(){
         return this.findForList(null);
     }
