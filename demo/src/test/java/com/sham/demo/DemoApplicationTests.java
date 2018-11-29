@@ -41,10 +41,6 @@ public class DemoApplicationTests {
 
     @Test
     public void test1() {
-        JSONArray jsonArray = new JSONArray();
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("type", "click");
-        jsonObject.put("name", "查看信息");
-        jsonObject.put("key", "info");
+        userService.demo();
     }
 }

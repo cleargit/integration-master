@@ -75,6 +75,7 @@ public abstract class AbstractService<T> extends WrapperDao {
     public Object findAll(){
         return this.findForList(null);
     }
+
     public int updateSelective(T entity){
         return mapper.updateByPrimaryKeySelective(entity);
     }

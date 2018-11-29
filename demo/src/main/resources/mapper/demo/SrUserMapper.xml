@@ -43,6 +43,7 @@
   <select id="findAll" resultMap="BaseResultMap">
     select  * from
     <include refid="Base_Table_Name" />
+
     <include refid="where_sql" />
     <include refid="order_sql" />
     <include refid="limit_sql" />
@@ -51,5 +52,23 @@
     select count(1) from
     <include refid="Base_Table_Name" />
     <include refid="where_sql" />
+  </select>
+
+  <select id="demo" resultMap="BaseResultMap">
+    select count(0) as sum from(
+    <foreach collection="ds" index="idx" item="item">
+      select id2,name from sr_user${item}
+      <choose>
+        <when test="code &gt; 2 and bool">
+          group by id
+        </when>
+        <otherwise>
+          <if test="idx &lt; ymSum-1">
+            union
+          </if>
+        </otherwise>
+      </choose>
+    </foreach>
+    )as ps
   </select>
 </mapper>

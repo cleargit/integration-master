@@ -70,5 +70,17 @@ public class UserService extends AbstractService<SrUser> {
         return super.insertSelective(info);
     }
 
+    public void demo(){
+
+        Map<String,Object> map=new HashMap<>();
+        Integer[] ds=new Integer[]{12,11};
+        map.put("ds",ds);
+        map.put("code",3);
+        map.put("bool",true);
+        map.put("ymSum",2);
+        Object o=super.findForList("demo",map);
+        System.out.println();
+    }
+
 
 }
